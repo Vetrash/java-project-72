@@ -1,3 +1,5 @@
+setup:
+	./gradlew wrapper --gradle-version 8.5
 build:
 	./gradlew build
 test:
