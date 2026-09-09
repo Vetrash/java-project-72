@@ -55,8 +55,8 @@ dependencies {
 
 sonar {
     properties {
-        property("sonar.projectKey", "ponttor_java-project-71")
-        property("sonar.organization", "ponttor")
+        property("sonar.projectKey", "Vetrash_java-project-72")
+        property("sonar.organization", "vetrash")
     }
 }
 
