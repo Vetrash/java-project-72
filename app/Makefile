@@ -12,4 +12,8 @@ report:
 checkstyle:
 	./gradlew checkstyleMain checkstyleTest
 
+.PHONY: run-chekstyleTest
+run-chekstyleTest:
+	./gradlew checkstyleTest
+
 .PHONY: build test run-dist report checkstyle
