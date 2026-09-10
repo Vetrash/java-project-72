@@ -10,7 +10,7 @@ content = @`
         <div class="container-lg mt-5">
             <h1>Сайты</h1>
 
-            <table class="table table-bordered table-hover mt-3">
+            <table class="table table-bordered table-hover mt-3" data-test="urls">
                 <thead>
                 <tr>
                     <th class="col-1">ID</th>
