@@ -25,7 +25,7 @@ public final class JteshowGenerated {
 				jteOutput.setContext("form", "action");
 				jteOutput.writeUserContent(page.getUrl().getId());
 				jteOutput.setContext("form", null);
-				jteOutput.writeContent("/checks\">\r\n                    <button type=\"submit\" class=\"btn btn-primary\">Запустить проверку</button>\r\n                </form>\r\n\r\n                <table class=\"table table-bordered table-hover mt-3\" data-test=\"checks\">\r\n                    <thead>\r\n                    <tr><th class=\"col-1\">ID</th>\r\n                        <th class=\"col-1\">Код ответа</th>\r\n                        <th>h1</th>\r\n                        <th>title</th>\r\n                        <th>description</th>\r\n                        <th class=\"col-2\">Дата проверки</th>\r\n                    </tr></thead>\r\n                    <tbody>\r\n                    ");
+				jteOutput.writeContent("/checks\">\r\n                    <input type=\"submit\" value=\"Запустить проверку\" class=\"btn btn-primary\">\r\n                </form>\r\n\r\n                <table class=\"table table-bordered table-hover mt-3\" data-test=\"checks\">\r\n                    <thead>\r\n                    <tr><th class=\"col-1\">ID</th>\r\n                        <th class=\"col-1\">Код ответа</th>\r\n                        <th>h1</th>\r\n                        <th>title</th>\r\n                        <th>description</th>\r\n                        <th class=\"col-2\">Дата проверки</th>\r\n                    </tr></thead>\r\n                    <tbody>\r\n                    ");
 				if (page.getUrlChecks() != null) {
 					jteOutput.writeContent("\r\n                    ");
 					for (var urlCheck : page.getUrlChecks()) {

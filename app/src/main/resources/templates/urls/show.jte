@@ -32,7 +32,7 @@ content = @`
 
                 <h2 class="mt-5">Проверки</h2>
                 <form method="post" action="/urls/${page.getUrl().getId()}/checks">
-                    <button type="submit" class="btn btn-primary">Запустить проверку</button>
+                    <input type="submit" value="Запустить проверку" class="btn btn-primary">
                 </form>
 
                 <table class="table table-bordered table-hover mt-3" data-test="checks">
