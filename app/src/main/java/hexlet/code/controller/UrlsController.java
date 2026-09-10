@@ -43,7 +43,7 @@ public class UrlsController {
 
             ctx.sessionAttribute("flash", "Страница успешно добавлена");
             ctx.sessionAttribute("alertType", "success");
-            ctx.redirect(NamedRoutes.urlsPath());
+            ctx.redirect(NamedRoutes.urlPath(String.valueOf(url.getId())));
         } else {
             ctx.sessionAttribute("flash", "Страница уже существует");
             ctx.sessionAttribute("alertType", "danger");
