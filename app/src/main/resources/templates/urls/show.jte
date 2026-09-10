@@ -35,12 +35,12 @@ content = @`
                     <button type="submit" class="btn btn-primary">Запустить проверку</button>
                 </form>
 
-                <table class="table table-bordered table-hover mt-3">
+                <table class="table table-bordered table-hover mt-3" data-test="checks">
                     <thead>
                     <tr><th class="col-1">ID</th>
                         <th class="col-1">Код ответа</th>
-                        <th>title</th>
                         <th>h1</th>
+                        <th>title</th>
                         <th>description</th>
                         <th class="col-2">Дата проверки</th>
                     </tr></thead>
@@ -55,10 +55,10 @@ content = @`
                                 ${urlCheck.getStatusCode()}
                             </td>
                             <td>
-                                ${urlCheck.getTitle()}
+                                ${urlCheck.getH1()}
                             </td>
                             <td>
-                                ${urlCheck.getH1()}
+                                ${urlCheck.getTitle()}
                             </td>
                             <td>
                                 ${urlCheck.getDescription()}
