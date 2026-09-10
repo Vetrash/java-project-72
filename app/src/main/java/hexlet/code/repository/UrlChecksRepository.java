@@ -14,7 +14,7 @@ import java.util.Map;
 public class UrlChecksRepository extends BaseRepository {
     public static void save(UrlCheck urlCheck) throws SQLException {
         String sql = "INSERT INTO url_checks (url_id, status_code, title, h1, description, created_at)"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+                     + " VALUES (?, ?, ?, ?, ?, ?)";
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql,
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -67,7 +67,8 @@ public class UrlChecksRepository extends BaseRepository {
     }
 
     public static Map<Integer, UrlCheck> getAllUrlsLastChecks() throws SQLException {
-        String sql = "SELECT DISTINCT ON (url_id, id) * FROM url_checks ORDER BY url_id, id";
+        String sql = "SELECT DISTINCT ON (url_id) * FROM url_checks "
+                     + "ORDER BY url_id, created_at DESC, id DESC";
 
         Map<Integer, UrlCheck> result = new HashMap<>();
 
