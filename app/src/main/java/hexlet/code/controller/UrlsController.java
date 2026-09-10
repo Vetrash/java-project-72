@@ -45,10 +45,12 @@ public class UrlsController {
             ctx.sessionAttribute("alertType", "success");
             ctx.redirect(NamedRoutes.urlPath(String.valueOf(url.getId())));
         } else {
-            ctx.sessionAttribute("flash", "Страница уже существует");
-            ctx.sessionAttribute("alertType", "danger");
-            ctx.redirect(NamedRoutes.urlsPath());
-        }
+                ctx.sessionAttribute("flash", "Страница уже существует");
+                ctx.sessionAttribute("alertType", "danger");
+                Url existingUrl = UrlRepository.findByName(normalizedUrlString)
+                        .orElseThrow(() -> new NotFoundResponse("Url not found"));
+                ctx.redirect(NamedRoutes.urlPath(String.valueOf(existingUrl.getId())));
+            }
     }
 
     public static void show(Context ctx) throws SQLException {

@@ -73,6 +73,19 @@ public class UrlRepository extends BaseRepository {
         return Optional.empty();
     }
 
+    public static Optional<Url> findByName(String name) throws SQLException {
+        String sql = "SELECT * FROM urls WHERE name = ?";
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            var resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return Optional.of(getUrlFromResultSet(resultSet));
+            }
+        }
+        return Optional.empty();
+    }
+
     public static Url getUrlFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
