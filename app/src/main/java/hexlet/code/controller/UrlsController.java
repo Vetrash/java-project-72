@@ -83,7 +83,7 @@ public class UrlsController {
         HttpResponse<String> response;
         try {
             response = Unirest.get(url.getName()).asString();
-            Unirest.shutDown();
+            //Unirest.shutDown();
         } catch (Exception e) {
             ctx.sessionAttribute("flash", "Invalid URL");
             ctx.sessionAttribute("alertType", "danger");
