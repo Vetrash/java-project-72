@@ -2,9 +2,14 @@ plugins {
     id("application")
     id("checkstyle")
     id("jacoco")
+    id("gg.jte.gradle") version "3.1.12"
     id("io.freefair.lombok") version "8.6"
     id("org.sonarqube") version "7.1.0.6387"
     id("com.github.ben-manes.versions") version "0.53.0"
+}
+
+application {
+    mainClass.set("hexlet.code.App")
 }
 
 group = "hexlet.code"
@@ -53,6 +58,7 @@ checkstyle {
     config = resources.text.fromFile("config/checkstyle/checkstyle.xml")
 }
 
+
 tasks.getByName("run", JavaExec::class) {
     standardInput = System.`in`
 }
@@ -70,6 +76,9 @@ tasks.jacocoTestReport {
     }
 }
 
-application {
-    mainClass.set("hexlet.code.App")
+
+jte {
+    generate()
+    sourceDirectory.set(project.file("src/main/resources/templates").toPath())
+    contentType.set(gg.jte.ContentType.Html)
 }

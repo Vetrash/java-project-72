@@ -6,6 +6,12 @@
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../app/build/classes/java/main" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../app/build/generated-resources/jte">
+      <sourceFolder url="file://$MODULE_DIR$/../../app/build/generated-resources/jte" type="java-resource" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../app/build/generated-sources/jte">
+      <sourceFolder url="file://$MODULE_DIR$/../../app/build/generated-sources/jte" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../app/build/generated/sources/annotationProcessor/java/main">
       <sourceFolder url="file://$MODULE_DIR$/../../app/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
     </content>
