@@ -5,10 +5,10 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Vetrash_java-project-72&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Vetrash_java-project-72)
 
 
-Создадите полноценное веб-приложение, которое выполняет запросы по сети и сохраняет данные в базу данных. Настроите CI и выполните деплой.
 
-Учебный проект Хекслета: https://ru.hexlet.io/programs/java
-Как это должно работать: https://files.hexlet.app/a/f9wlja
+**Page Analyzer** — это полноценный веб-сервис для SEO-аудита веб-страниц. Проект создан для отработки навыков промышленной разработки на Java с использованием архитектуры MVC, работы с HTTP-протоколом, базами данных и непрерывной интеграцией.
+
+
 
 ## Стек
 
