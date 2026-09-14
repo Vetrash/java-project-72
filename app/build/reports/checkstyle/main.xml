@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.12.4">
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/dto/UrlPage.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/dto/BasePage.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/dto/UrlsPage.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/dataBase/ConfigDB.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/repository/UrlRepository.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/repository/UrlCheckRepository.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/repository/BaseRepository.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/utils/NamedRoutes.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/controller/UrlController.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/model/Url.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/model/UrlCheck.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+<file name="/Users/aleksejemelanov/Desktop/Hexle/java-project-2/java-project-72/app/src/main/java/hexlet/code/App.java">
+<error line="1" severity="error" message="Файл не заканчивается пустой строкой." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+</checkstyle>
