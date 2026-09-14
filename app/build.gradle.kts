@@ -3,7 +3,7 @@ plugins {
     id("checkstyle")
     id("jacoco")
     id("gg.jte.gradle") version "3.1.12"
-    id("io.freefair.lombok") version "8.6"
+    id("io.freefair.lombok") version "9.5.0"
     id("org.sonarqube") version "7.1.0.6387"
     id("com.github.ben-manes.versions") version "0.53.0"
 }
@@ -39,6 +39,7 @@ dependencies {
     testImplementation("io.javalin:javalin-testtools:6.1.3")
     testImplementation("com.h2database:h2:2.2.220")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 sonar {
@@ -58,6 +59,15 @@ checkstyle {
     config = resources.text.fromFile("config/checkstyle/checkstyle.xml")
 }
 
+tasks.checkstyleMain {
+    exclude("**/build/generated-sources/**")
+    exclude("**/jte/**")
+}
+
+tasks.checkstyleTest {
+    exclude("**/build/generated-sources/**")
+    exclude("**/jte/**")
+}
 
 tasks.getByName("run", JavaExec::class) {
     standardInput = System.`in`
