@@ -6,6 +6,7 @@ plugins {
     id("io.freefair.lombok") version "9.5.0"
     id("org.sonarqube") version "7.1.0.6387"
     id("com.github.ben-manes.versions") version "0.53.0"
+    id("com.gradleup.shadow") version "8.3.10"
 }
 
 application {
@@ -91,4 +92,36 @@ jte {
     generate()
     sourceDirectory.set(project.file("src/main/resources/templates").toPath())
     contentType.set(gg.jte.ContentType.Html)
+}
+
+tasks.shadowJar {
+    mergeServiceFiles()
+    archiveClassifier.set("")
+    manifest {
+        attributes["Main-Class"] = "hexlet.code.App"
+    }
+}
+
+tasks.startShadowScripts {
+    dependsOn(tasks.jar)
+}
+
+tasks.startScripts {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.distTar {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.distZip {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.shadowDistTar {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.shadowDistZip {
+    dependsOn(tasks.shadowJar)
 }
