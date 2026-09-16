@@ -5,12 +5,14 @@ import hexlet.code.repository.UrlRepository;
 import hexlet.code.App;
 import hexlet.code.utils.NamedRoutes;
 import io.javalin.Javalin;
+import io.javalin.http.HttpStatus;
 import io.javalin.testtools.JavalinTest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,15 +40,6 @@ class AppTest {
                 uri.getHost(),
                 uri.getPort() == -1 ? "" : ":" + uri.getPort()
         );
-
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-        dataSource = new HikariDataSource(config);
-        hexlet.code.repository.BaseRepository.dataSource = dataSource;
-
-        System.setProperty("TEST_DATABASE_URL", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-
-        createTables();
 
         app = App.getApp();
     }
@@ -98,7 +91,7 @@ class AppTest {
     void testCreateUrlSuccess() throws SQLException {
         JavalinTest.test(app, (server, client) -> {
             try (var response = client.post(NamedRoutes.urlsPath(), "url=https://example.com")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var maybeUrl = UrlRepository.findByName("https://example.com");
@@ -112,7 +105,7 @@ class AppTest {
             client.post(NamedRoutes.urlsPath(), "url=https://duplicate.com");
 
             try (var response = client.post(NamedRoutes.urlsPath(), "url=https://duplicate.com")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var maybeUrl = UrlRepository.findByName("https://duplicate.com");
@@ -140,7 +133,7 @@ class AppTest {
 
             long id = maybeUrl.get().getId();
             try (var response = client.get(NamedRoutes.urlPath(String.valueOf(id)))) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
                 assertThat(response.body().string()).contains("https://test.com");
             }
         });
@@ -177,7 +170,7 @@ class AppTest {
 
             long id = maybeUrl.get().getId();
             try (var response = client.post(NamedRoutes.urlChecksPath(String.valueOf(id)), "")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var checks = UrlCheckRepository.findByUrlId(id);
@@ -215,7 +208,7 @@ class AppTest {
 
             long id = maybeUrl.get().getId();
             try (var response = client.post(NamedRoutes.urlChecksPath(String.valueOf(id)), "")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var checks = UrlCheckRepository.findByUrlId(id);
@@ -240,7 +233,7 @@ class AppTest {
 
             long id = maybeUrl.get().getId();
             try (var response = client.post(NamedRoutes.urlChecksPath(String.valueOf(id)), "")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             // Проверка не должна быть сохранена при статусе 404
@@ -260,7 +253,7 @@ class AppTest {
             long id = maybeUrl.get().getId();
             try (var response = client.get(NamedRoutes.urlPath(String.valueOf(id)))) {
                 String body = response.body().string();
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
                 assertThat(body).contains("data-test=\"url\"");
                 assertThat(body).contains("method=\"post\"");
                 assertThat(body).contains("action=\"/urls/" + id + "/checks\"");
@@ -287,7 +280,7 @@ class AppTest {
 
             long id = maybeUrl.get().getId();
             try (var response = client.post(NamedRoutes.urlChecksPath(String.valueOf(id)), "")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var checks = UrlCheckRepository.findByUrlId(id);
@@ -304,7 +297,7 @@ class AppTest {
     void testCreateUrlWithPort() throws SQLException {
         JavalinTest.test(app, (server, client) -> {
             try (var response = client.post(NamedRoutes.urlsPath(), "url=http://localhost:8080")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var maybeUrl = UrlRepository.findByName("http://localhost:8080");
@@ -317,7 +310,7 @@ class AppTest {
     void testCreateUrlWithHttps() throws SQLException {
         JavalinTest.test(app, (server, client) -> {
             try (var response = client.post(NamedRoutes.urlsPath(), "url=https://secure.com")) {
-                assertThat(response.code()).isEqualTo(200);
+                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
             }
 
             var maybeUrl = UrlRepository.findByName("https://secure.com");

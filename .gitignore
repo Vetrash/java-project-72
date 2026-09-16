@@ -1,5 +1,6 @@
 # Gradle
 app/.gradle/
+app/jte-classes
 build/
 !gradle/wrapper/gradle-wrapper.jar
 .kotlin/
