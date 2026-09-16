@@ -127,5 +127,5 @@ tasks.shadowDistZip {
 }
 
 tasks.register("install") {
-    dependsOn("installDist")   // или "installShadowDist"
+    dependsOn("installShadowDist")   // или "installShadowDist"
 }
