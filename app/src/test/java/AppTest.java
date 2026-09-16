@@ -1,4 +1,4 @@
-import com.zaxxer.hikari.HikariConfig;
+
 import com.zaxxer.hikari.HikariDataSource;
 import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
