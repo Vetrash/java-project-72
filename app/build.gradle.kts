@@ -125,3 +125,7 @@ tasks.shadowDistTar {
 tasks.shadowDistZip {
     dependsOn(tasks.shadowJar)
 }
+
+tasks.register("install") {
+    dependsOn("installDist")   // или "installShadowDist"
+}
