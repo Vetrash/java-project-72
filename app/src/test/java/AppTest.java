@@ -1,4 +1,5 @@
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
@@ -40,6 +41,15 @@ class AppTest {
                 uri.getHost(),
                 uri.getPort() == -1 ? "" : ":" + uri.getPort()
         );
+
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
+        dataSource = new HikariDataSource(config);
+        hexlet.code.repository.BaseRepository.dataSource = dataSource;
+
+        System.setProperty("TEST_DATABASE_URL", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
+
+        createTables();
 
         app = App.getApp();
     }
