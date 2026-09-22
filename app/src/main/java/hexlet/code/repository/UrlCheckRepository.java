@@ -20,10 +20,10 @@ public class UrlCheckRepository extends BaseRepository {
         if (text == null) {
             return null;
         }
-        if (text.length() <= 200) {
+        if (text.length() <= 100) {
             return text;
         }
-        return text.substring(0, 200) + "...";
+        return text.substring(0, 100) + "...";
     }
 
     public static void save(UrlCheck check) throws SQLException {
