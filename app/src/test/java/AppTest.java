@@ -64,19 +64,23 @@ class AppTest {
 
     public static void clear() {
         HikariDataSource dataSource = BaseRepository.getDataSourcedataSource();
-        if (dataSource == null) {
-            return;
-        }
+        if (dataSource == null) return;
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.createStatement()) {
 
-            stmt.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            stmt.execute("TRUNCATE TABLE url_checks");
-            stmt.execute("TRUNCATE TABLE urls");
-            stmt.execute("ALTER TABLE urls ALTER COLUMN id RESTART WITH 1");
-            stmt.execute("ALTER TABLE url_checks ALTER COLUMN id RESTART WITH 1");
-            stmt.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            String dbName = conn.getMetaData().getDatabaseProductName().toLowerCase();
+
+            if (dbName.contains("h2")) {
+                stmt.execute("SET REFERENTIAL_INTEGRITY FALSE");
+                stmt.execute("TRUNCATE TABLE url_checks");
+                stmt.execute("TRUNCATE TABLE urls");
+                stmt.execute("ALTER TABLE urls ALTER COLUMN id RESTART WITH 1");
+                stmt.execute("ALTER TABLE url_checks ALTER COLUMN id RESTART WITH 1");
+                stmt.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            } else { // PostgreSQL
+                stmt.execute("TRUNCATE TABLE url_checks, urls RESTART IDENTITY CASCADE");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Failed to clear database", e);
