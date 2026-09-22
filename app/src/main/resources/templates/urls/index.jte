@@ -1,4 +1,6 @@
 @import hexlet.code.dto.UrlsPage
+@import java.time.format.DateTimeFormatter
+@import java.time.LocalDateTime
 @param UrlsPage page
 
 @template.layout(page = page, content = @`
@@ -26,7 +28,7 @@
                         </td>
                         <td class="px-4 py-3 text-sm text-gray-700">
                             @if(page.getLastCheckDate().containsKey(url.getId()))
-                                ${page.getLastCheckDate().get(url.getId()).toString()}
+                                ${page.getLastCheckDate().get(url.getId()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}
                             @else
                                 -
                             @endif

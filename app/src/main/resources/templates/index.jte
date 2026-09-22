@@ -9,11 +9,7 @@ content = @`
             <h1 class="text-5xl font-light mb-0">Анализатор страниц</h1>
             <p class="text-xl text-gray-600 mt-2">Бесплатно проверяйте сайты на SEO пригодность</p>
 
-            @if(page != null && page.getError() != null)
-                <div class="mt-4 p-4 rounded-lg bg-red-100 text-red-800 border border-red-200" role="alert">
-                    ${page.getError()}
-                </div>
-            @endif
+
 
             <form action="/urls" method="post" class="mt-4">
                 <div class="flex flex-col sm:flex-row gap-2">

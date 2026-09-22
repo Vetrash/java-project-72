@@ -40,15 +40,15 @@
     <div class="max-w-5xl mx-auto px-4 mt-4">
 
         @if(page != null && page.getFlash() != null)
-            <div class="alert alert-${page.getFlashType()}" role="alert">
+        <div class="mt-4 p-4 rounded-lg bg-green-100 text-green-800 border border-green-200" role="alert">
                 ${page.getFlash()}
             </div>
         @endif
 
         @if(page != null && page.getError() != null)
-            <div class="alert alert-danger" role="alert">
-                ${page.getError()}
-            </div>
+                        <div class="mt-4 p-4 rounded-lg bg-red-100 text-red-800 border border-red-200" role="alert">
+                            ${page.getError()}
+                        </div>
         @endif
 
         ${content}

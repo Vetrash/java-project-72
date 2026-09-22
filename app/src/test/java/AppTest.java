@@ -1,6 +1,6 @@
 
-import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import hexlet.code.repository.BaseRepository;
 import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.App;
@@ -10,10 +10,11 @@ import io.javalin.http.HttpStatus;
 import io.javalin.testtools.JavalinTest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,80 +24,64 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AppTest {
 
-    private Javalin app;
-    private HikariDataSource dataSource;
-    private MockWebServer mockWebServer;
-    private String mockServerUrl;
-    private String normalizedMockServerUrl;
+    private static MockWebServer mockWebServer;
+    private static String normalizedMockServerUrl;
 
-    @BeforeEach
-    void beforeEach() throws IOException, SQLException {
+    private Javalin app;
+
+    @BeforeAll
+    static void beforeAll() throws IOException, SQLException {
         mockWebServer = new MockWebServer();
         mockWebServer.start();
-        String rawUrl = mockWebServer.url("/").toString();
-        URI uri = URI.create(rawUrl);
-        mockServerUrl = rawUrl;
+
+        URI uri = URI.create(mockWebServer.url("/").toString());
         normalizedMockServerUrl = String.format("%s://%s%s",
                 uri.getScheme(),
                 uri.getHost(),
                 uri.getPort() == -1 ? "" : ":" + uri.getPort()
         );
-
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-        dataSource = new HikariDataSource(config);
-        hexlet.code.repository.BaseRepository.dataSource = dataSource;
-
-        System.setProperty("TEST_DATABASE_URL", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-
-        createTables();
-
-        app = App.getApp();
     }
 
-    @AfterEach
-    void afterEach() throws IOException {
-        System.clearProperty("TEST_DATABASE_URL");
-        if (app != null) {
-            app.stop();
-        }
-        if (dataSource != null) {
-            dataSource.close();
-        }
+    @AfterAll
+    static void afterAll() throws IOException {
         if (mockWebServer != null) {
             mockWebServer.shutdown();
         }
     }
 
-    private void createTables() throws SQLException {
-        try (var conn = dataSource.getConnection();
-             var stmt = conn.createStatement()) {
+    @BeforeEach
+    void beforeEach() throws SQLException {
+        clear();
+        app = App.getApp();
+    }
 
-            stmt.execute("DROP TABLE IF EXISTS url_checks");
-            stmt.execute("DROP TABLE IF EXISTS urls");
-
-            stmt.execute("""
-                CREATE TABLE urls (
-                    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(255) NOT NULL UNIQUE,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                )
-                """);
-
-            stmt.execute("""
-                CREATE TABLE url_checks (
-                    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    url_id BIGINT NOT NULL,
-                    status_code INT,
-                    title VARCHAR(255),
-                    h1 VARCHAR(255),
-                    description TEXT,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                )
-                """);
+    @AfterEach
+    void afterEach() {
+        if (app != null) {
+            app.stop();
         }
     }
 
+    public static void clear() {
+        HikariDataSource dataSource = BaseRepository.getDataSourcedataSource();
+        if (dataSource == null) {
+            return;
+        }
+
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.createStatement()) {
+
+            stmt.execute("SET REFERENTIAL_INTEGRITY FALSE");
+            stmt.execute("TRUNCATE TABLE url_checks");
+            stmt.execute("TRUNCATE TABLE urls");
+            stmt.execute("ALTER TABLE urls ALTER COLUMN id RESTART WITH 1");
+            stmt.execute("ALTER TABLE url_checks ALTER COLUMN id RESTART WITH 1");
+            stmt.execute("SET REFERENTIAL_INTEGRITY TRUE");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to clear database", e);
+        }
+    }
     @Test
     void testCreateUrlSuccess() throws SQLException {
         JavalinTest.test(app, (server, client) -> {
@@ -172,7 +157,6 @@ class AppTest {
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(mockHtml));
 
         JavalinTest.test(app, (server, client) -> {
-            // Используем нормализованный URL для POST запроса
             client.post(NamedRoutes.urlsPath(), "url=" + normalizedMockServerUrl);
 
             var maybeUrl = UrlRepository.findByName(normalizedMockServerUrl);
