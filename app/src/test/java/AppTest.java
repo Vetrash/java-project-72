@@ -47,6 +47,7 @@ class AppTest {
         if (mockWebServer != null) {
             mockWebServer.shutdown();
         }
+        clear();
     }
 
     @BeforeEach
