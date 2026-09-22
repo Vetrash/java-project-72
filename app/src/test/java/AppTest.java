@@ -64,7 +64,9 @@ class AppTest {
 
     public static void clear() {
         HikariDataSource dataSource = BaseRepository.getDataSourcedataSource();
-        if (dataSource == null) return;
+        if (dataSource == null) {
+            return;
+        }
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.createStatement()) {
