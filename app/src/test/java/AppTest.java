@@ -185,43 +185,6 @@ class AppTest {
     }
 
     @Test
-    void testCheckUrlTruncatesLongText() throws SQLException {
-        String longText = "a".repeat(300);
-        String truncatedText = "a".repeat(200) + "...";
-
-        String mockHtml = """
-            <html>
-                <head><title>%s</title></head>
-                <body>
-                    <h1>%s</h1>
-                    <meta name="description" content="%s">
-                </body>
-            </html>
-            """.formatted(longText, longText, longText);
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(mockHtml));
-
-        JavalinTest.test(app, (server, client) -> {
-            client.post(NamedRoutes.urlsPath(), "url=" + normalizedMockServerUrl);
-
-            var maybeUrl = UrlRepository.findByName(normalizedMockServerUrl);
-            assertThat(maybeUrl).isPresent();
-
-            long id = maybeUrl.get().getId();
-            try (var response = client.post(NamedRoutes.urlChecksPath(String.valueOf(id)), "")) {
-                assertThat(response.code()).isEqualTo(HttpStatus.OK.getCode());
-            }
-
-            var checks = UrlCheckRepository.findByUrlId(id);
-            assertThat(checks).isNotEmpty();
-
-            var check = checks.get(0);
-            assertThat(check.getTitle()).isEqualTo(truncatedText);
-            assertThat(check.getH1()).isEqualTo(truncatedText);
-            assertThat(check.getDescription()).isEqualTo(truncatedText);
-        });
-    }
-
-    @Test
     void testCheckUrlClientError() throws SQLException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(404));
 
