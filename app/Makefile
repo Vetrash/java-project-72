@@ -1,8 +1,8 @@
 setup: build-css
 	./gradlew build installDist
-build:
+build: build-css
 	./gradlew build
-test:
+test: build-css
 	./gradlew test
 run-dist:
 	./gradlew installDist
