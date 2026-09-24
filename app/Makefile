@@ -1,4 +1,4 @@
-setup:
+setup: build-css
 	./gradlew build installDist
 build:
 	./gradlew build
@@ -15,5 +15,9 @@ checkstyle:
 .PHONY: run-chekstyleTest
 run-chekstyleTest:
 	./gradlew checkstyleTest
+
+build-css:
+	cd tailwind && npm ci
+	cd tailwind && npm run build:css
 
 .PHONY: build test run-dist report checkstyle

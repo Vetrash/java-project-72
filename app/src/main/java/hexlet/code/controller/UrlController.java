@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import io.javalin.http.HttpStatus;
 
 @Slf4j
 public class UrlController {
@@ -37,7 +38,7 @@ public class UrlController {
             log.warn("Empty URL submitted");
             BasePage page = new BasePage();
             page.setError("Некорректный URL");
-            ctx.status(422);
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT.getCode());
             ctx.render("index.jte", Map.of("page", page));
             return;
         }
@@ -46,7 +47,7 @@ public class UrlController {
             log.warn("Invalid URL (missing protocol): {}", inputUrl);
             BasePage page = new BasePage();
             page.setError("Некорректный URL");
-            ctx.status(422);
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT.getCode());
             ctx.render("index.jte", Map.of("page", page));
             return;
         }
@@ -58,7 +59,7 @@ public class UrlController {
             log.warn("Invalid URL: {}", inputUrl);
             BasePage page = new BasePage();
             page.setError("Некорректный URL");
-            ctx.status(422);
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT.getCode());
             ctx.render("index.jte", Map.of("page", page));
             return;
         }
@@ -70,7 +71,7 @@ public class UrlController {
             log.warn("Invalid URL (invalid scheme or missing host): {}", inputUrl);
             BasePage page = new BasePage();
             page.setError("Некорректный URL");
-            ctx.status(422);
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT.getCode());
             ctx.render("index.jte", Map.of("page", page));
             return;
         }

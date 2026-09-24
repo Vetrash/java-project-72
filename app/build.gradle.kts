@@ -61,11 +61,15 @@ checkstyle {
 
 tasks.checkstyleMain {
     exclude("**/build/generated-sources/**")
+    exclude("**/generated-sources/jte/**")
+    exclude("**/gg/jte/**")
     exclude("**/jte/**")
 }
 
 tasks.checkstyleTest {
     exclude("**/build/generated-sources/**")
+    exclude("**/generated-sources/jte/**")
+    exclude("**/gg/jte/**")
     exclude("**/jte/**")
 }
 

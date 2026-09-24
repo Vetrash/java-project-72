@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анализатор страниц</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="/css/main.css" rel="stylesheet">
 </head>
 <body class="flex flex-col min-h-screen">
 <nav class="flex flex-wrap items-center justify-between bg-gray-900 text-white px-4 py-3 mb-3">
@@ -39,16 +39,11 @@
 <main class="flex-grow">
     <div class="max-w-5xl mx-auto px-4 mt-4">
 
-        @if(page != null && page.getFlash() != null)
-        <div class="mt-4 p-4 rounded-lg bg-green-100 text-green-800 border border-green-200" role="alert">
-                ${page.getFlash()}
+        @if(page != null && (page.getFlash() != null || page.getError() != null))
+            <div class="mt-4 p-4 rounded-lg border ${page.getFlash() != null ? "bg-green-100 text-green-800 border-green-200" : "bg-red-100 text-red-800 border-red-200"}"
+                 role="alert">
+                ${page.getFlash() != null ? page.getFlash() : page.getError()}
             </div>
-        @endif
-
-        @if(page != null && page.getError() != null)
-                        <div class="mt-4 p-4 rounded-lg bg-red-100 text-red-800 border border-red-200" role="alert">
-                            ${page.getError()}
-                        </div>
         @endif
 
         ${content}

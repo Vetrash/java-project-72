@@ -1,6 +1,7 @@
 package hexlet.code.repository;
 
 import hexlet.code.model.UrlCheck;
+import hexlet.code.utils.StringUtils;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,16 +17,6 @@ import java.util.Optional;
 
 public class UrlCheckRepository extends BaseRepository {
 
-    private static String truncate(String text) {
-        if (text == null) {
-            return null;
-        }
-        if (text.length() <= 100) {
-            return text;
-        }
-        return text.substring(0, 100) + "...";
-    }
-
     public static void save(UrlCheck check) throws SQLException {
         String sql = "INSERT INTO url_checks (url_id, status_code, title, h1, "
                      +
@@ -36,9 +27,9 @@ public class UrlCheckRepository extends BaseRepository {
 
             stmt.setLong(1, check.getUrlId());
             stmt.setInt(2, check.getStatusCode());
-            stmt.setString(3, truncate(check.getTitle()));
-            stmt.setString(4, truncate(check.getH1()));
-            stmt.setString(5, truncate(check.getDescription()));
+            stmt.setString(3, StringUtils.truncate(check.getTitle()));
+            stmt.setString(4, StringUtils.truncate(check.getH1()));
+            stmt.setString(5, StringUtils.truncate(check.getDescription()));
             stmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
 
             stmt.executeUpdate();
