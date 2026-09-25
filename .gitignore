@@ -1,5 +1,6 @@
 # Gradle
 app/.gradle/
+app/tailwind/node_modules
 app/jte-classes
 build/
 !gradle/wrapper/gradle-wrapper.jar

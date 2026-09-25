@@ -27,8 +27,6 @@ dependencies {
     implementation("gg.jte:jte:3.1.12")
     implementation("com.h2database:h2:2.2.220")
     implementation("com.zaxxer:HikariCP:5.0.1")
-    compileOnly("org.projectlombok:lombok:1.18.30")
-    annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("org.postgresql:postgresql:42.7.3")
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.konghq:unirest-java:3.14.5")

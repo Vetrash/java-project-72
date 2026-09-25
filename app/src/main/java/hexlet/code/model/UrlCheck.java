@@ -1,6 +1,5 @@
 package hexlet.code.model;
 
-import hexlet.code.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +24,9 @@ public class UrlCheck {
     public UrlCheck(Long urlId, Integer statusCode, String title, String h1, String description) {
         this.urlId = urlId;
         this.statusCode = statusCode;
-        this.title = StringUtils.truncate(title);
-        this.h1 = StringUtils.truncate(h1);
-        this.description = StringUtils.truncate(description);
+        this.title = title;
+        this.h1 = h1;
+        this.description = description;
     }
 
     public String getCreatedAtFormatted() {
