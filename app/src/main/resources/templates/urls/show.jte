@@ -1,5 +1,7 @@
 @import hexlet.code.dto.UrlPage
 @import hexlet.code.model.UrlCheck
+@import java.time.format.DateTimeFormatter;
+
 @param UrlPage page
 
 @template.layout(page = page, content = @`
@@ -19,7 +21,7 @@
                 </tr>
                 <tr class="hover:bg-gray-50 transition-colors">
                     <th scope="row" class="px-4 py-3 text-left text-sm font-semibold text-gray-700 bg-gray-50">Дата создания</th>
-                    <td class="px-4 py-3 text-sm text-gray-700">${page.getUrl().getCreatedAt() != null ? page.getUrl().getCreatedAtFormatted() : "-"}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">${page.getUrl().getCreatedAt() != null ? DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").format(page.getUrl().getCreatedAt()) : "-"}</td>
                 </tr>
                 </tbody>
             </table>
@@ -55,7 +57,7 @@
                         <td class="px-4 py-3 text-sm text-gray-700">${check.getH1() != null ? check.getH1() : ""}</td>
                         <td class="px-4 py-3 text-sm text-gray-700">${check.getTitle() != null ? check.getTitle() : ""}</td>
                         <td class="px-4 py-3 text-sm text-gray-700">${check.getDescription() != null ? check.getDescription() : ""}</td>
-                        <td class="px-4 py-3 text-sm text-gray-700">${check.getCreatedAt() != null ? check.getCreatedAtFormatted() : "-"}</td>
+                        <td class="px-4 py-3 text-sm text-gray-700">${check.getCreatedAt() != null ? DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").format(check.getCreatedAt()): "-"}</td>
                     </tr>
                 @endfor
                 </tbody>

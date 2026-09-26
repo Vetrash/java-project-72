@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class UrlCheck {
-    private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     private Long id;
     private Long urlId;
@@ -29,12 +26,6 @@ public class UrlCheck {
         this.description = description;
     }
 
-    public String getCreatedAtFormatted() {
-        if (createdAt == null) {
-            return "";
-        }
-        return createdAt.format(DATE_FORMATTER);
-    }
 
 
 }
